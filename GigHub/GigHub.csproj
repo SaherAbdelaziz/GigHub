@@ -203,6 +203,10 @@
     <Compile Include="Migrations\202004161548153_addGigTable.Designer.cs">
       <DependentUpon>202004161548153_addGigTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004161557375_overridDataAnotationForGigAndGenre.cs" />
+    <Compile Include="Migrations\202004161557375_overridDataAnotationForGigAndGenre.Designer.cs">
+      <DependentUpon>202004161557375_overridDataAnotationForGigAndGenre.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -295,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004161548153_addGigTable.resx">
       <DependentUpon>202004161548153_addGigTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004161557375_overridDataAnotationForGigAndGenre.resx">
+      <DependentUpon>202004161557375_overridDataAnotationForGigAndGenre.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
