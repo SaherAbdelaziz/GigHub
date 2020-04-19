@@ -8,6 +8,8 @@
 
 @using (Html.BeginForm("Create", "Gigs"))
 {
+    @Html.AntiForgeryToken()
+    
     <div class="form-group">
         @Html.LabelFor(g => g.Venue)
         @Html.TextBoxFor(g => g.Venue, new { @class = "form-control" })
