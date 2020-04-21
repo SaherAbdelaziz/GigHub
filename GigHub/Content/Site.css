@@ -65,10 +65,10 @@ span.field-validation-error {
 
 
 .form-control {
-    font-size: 17px;
-    padding: 20px 15px;
+    font-size: 13px;
+    margin: 9px 12px;
     -ms-border-radius: 20px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 form-control:focus {
