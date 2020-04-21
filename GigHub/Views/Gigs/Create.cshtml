@@ -8,11 +8,13 @@
 
 @using (Html.BeginForm("Create", "Gigs"))
 {
+    <p class="alert alert-info"> All Fields are <strong>Required</strong>. </p>
+
     @Html.AntiForgeryToken()
     
     <div class="form-group">
         @Html.LabelFor(g => g.Venue)
-        @Html.TextBoxFor(g => g.Venue, new { @class = "form-control" })
+        @Html.TextBoxFor(g => g.Venue, new { @class = "form-control" , autofocus="autofocus" })
         @Html.ValidationMessageFor(g => g.Venue)
     </div>
 
