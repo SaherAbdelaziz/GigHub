@@ -7,7 +7,7 @@
 
 
 <ul class="gigs">
-    
+
     @foreach (var gig in Model)
     {
         <li>
@@ -21,14 +21,15 @@
             </div>
             <div class="details">
                 <span class="artist">
-                    @gig.Artist.Name
+                    @gig.Artist.Name <button style="font-size:8px" data-user-id="@gig.ArtistId" class="btn btn-link btn-sm  js-toggle-follow"> Follow?</button>
                 </span>
                 <span class="genre">
-                    @gig.Genre.Name
+                    @gig.Genre.Name <button style="font-size:8px" data-gig-id="@gig.Id" class="btn btn-default btn-sm  js-toggle-attendance"> Going?</button>
                 </span>
 
-                <button style="font-size:8px" data-gig-id="@gig.Id" class="btn btn-default btn-sm  js-toggle-attendance"> Going?</button>
-                
+
+
+
             </div>
         </li>
     }
@@ -39,24 +40,36 @@
 @section scripts
 {
     <script>
-        $(document).ready(function() {
-            $(".js-toggle-attendance").click(function(e) {
+        $(document).ready(function () {
+            $(".js-toggle-attendance").click(function (e) {
                 var button = $(e.target);
 
-                $.post("/api/attendances", { gigId: button.attr("data-artist-id") })
-                    .done(function() {
+                $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
+                    .done(function () {
                         button
                             .removeClass("btn-default")
                             .addClass("btn-info")
                             .text("Going");
                     })
-                    .fail(function() {
+                    .fail(function () {
                         alert("Something failed!");
                     });
             });
         });
 
+            
+        $(".js-toggle-follow").click(function (e) {
+            var button = $(e.target);
 
-       
+            $.post("/api/followings", { followedId: button.attr("data-user-id") })
+                .done(function () {
+                    button
+                        .text("Following");
+                })
+                .fail(function () {
+                    alert("Something failed!");
+                });
+        });
+
     </script>
 }

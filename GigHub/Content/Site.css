@@ -133,3 +133,8 @@ form-control:focus {
 .gigs > li .details .genre {
     font-size: 15px;
 }
+
+
+span {
+    width: 100%;    
+}
