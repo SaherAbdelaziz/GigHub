@@ -1,14 +1,13 @@
-﻿@model IEnumerable<GigHub.Models.Gig>
+﻿@model GigHub.ViewModels.GigsViewModel
 
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-
 <ul class="gigs">
 
-    @foreach (var gig in Model)
+    @foreach (var gig in Model.UpcomingGigs)
     {
         <li>
             <div class="date">
@@ -19,17 +18,23 @@
                     @gig.DateTime.ToString("d ")
                 </div>
             </div>
+
             <div class="details">
                 <span class="artist">
-                    @gig.Artist.Name <button style="font-size:8px" data-user-id="@gig.ArtistId" class="btn btn-link btn-sm  js-toggle-follow"> Follow?</button>
+                    @gig.Artist.Name
+                    @if (Model.ShowActions)
+                    {
+                        <button style="font-size:8px" data-user-id="@gig.ArtistId" class="btn btn-link btn-sm  js-toggle-follow"> Follow?</button>
+                    }
                 </span>
+
                 <span class="genre">
-                    @gig.Genre.Name <button style="font-size:8px" data-gig-id="@gig.Id" class="btn btn-default btn-sm  js-toggle-attendance"> Going?</button>
+                    @gig.Genre.Name
+                    @if (Model.ShowActions)
+                    {
+                        <button style="font-size:8px" data-gig-id="@gig.Id" class="btn btn-default btn-sm  js-toggle-attendance"> Going?</button>
+                    }
                 </span>
-
-
-
-
             </div>
         </li>
     }
@@ -57,7 +62,7 @@
             });
         });
 
-            
+
         $(".js-toggle-follow").click(function (e) {
             var button = $(e.target);
 
