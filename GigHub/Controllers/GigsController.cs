@@ -52,7 +52,22 @@ namespace GigHub.Controllers
             _context.Gigs.Add(gig);
             _context.SaveChanges();
 
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("Mine", "Gigs");
+        }
+
+
+        [Authorize]
+        public ActionResult Mine()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var gigs = _context.Gigs
+                .Where(g => g.ArtistId == userId)
+                .Include(g => g.Genre)
+                .Include(g => g.Artist)
+                .ToList();
+
+            return View(gigs);
         }
 
         [Authorize]
