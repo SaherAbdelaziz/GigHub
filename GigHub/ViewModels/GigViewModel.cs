@@ -7,6 +7,8 @@ namespace GigHub.ViewModels
 {
     public class GigViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Venue { get; set; }
 
@@ -18,6 +20,10 @@ namespace GigHub.ViewModels
         public int Genre { get; set; }
 
         public IEnumerable<Genre> Genres { get; set; }
+
+        public string Heading { get; set; }
+
+        public string Action => (Id == 0) ? "Create" : "Update";
 
     }
 }

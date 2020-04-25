@@ -134,7 +134,11 @@ form-control:focus {
     font-size: 15px;
 }
 
+.gigs > li .actions {
+    font-size: 15px;
+    display: none
+}
 
-span {
-    width: 100%;    
+.gigs >li:hover .actions {
+    display: block;
 }
