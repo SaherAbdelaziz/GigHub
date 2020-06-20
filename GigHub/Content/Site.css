@@ -58,6 +58,24 @@ span.field-validation-error {
     font-weight: 900;
 }
 
+
+.navbar-inverse .notifications {
+    position: relative;    
+}
+
+a.notifications + div.popover {
+    width: 300px;
+    left: -116px;
+}
+
+.navbar-inverse .notifications .badge {
+    position: absolute;
+    top: 8px;
+    right: -1px;
+    background: #a80a0a;
+}
+
+
 .dropdown-menu {
     box-shadow: none;
     -webkit-box-shadow: none;
