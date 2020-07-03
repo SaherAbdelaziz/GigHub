@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using GigHub.Migrations;
 
 namespace GigHub.Controllers
 {
@@ -129,6 +131,11 @@ namespace GigHub.Controllers
                 .Include(g => g.Artist)
                 .Include(g => g.Genre)
                 .ToList();
+;
+            var attendances = _context.Attendances
+                .Where(a => a.AttendeeId == artistId)
+                .ToList()
+                .ToLookup(a => a.GigId);
 
 
 
@@ -136,9 +143,42 @@ namespace GigHub.Controllers
             {
                 UpcomingGigs = gigs,
                 ShowActions = User.Identity.IsAuthenticated,
-                Heading = "Gigs i'm Attending"
+                Heading = "Gigs i'm Attending",
+                Attendances = attendances
+
             };
             return View("Gigs", viewModel);
+        }
+
+        public ActionResult Details(int id)
+        {
+            
+            var gig = _context.Gigs
+                .Include(g => g.Artist)
+                .Include(g => g.Attendances)
+                .FirstOrDefault(g => g.Id == id);
+
+            var gigviewmodel = new GigDetailsViewModel()
+            {
+                Gig = gig,
+        };
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                gigviewmodel.IsGoing = _context.Attendances
+                    .Any(a => a.GigId == id && a.AttendeeId == userId);
+
+                gigviewmodel.IsFollowing = _context.Followings
+                    .Any(a => a.FollowerId == userId && a.FolloweeId == gig.ArtistId);
+            }
+
+            return View(gigviewmodel);
+        }
+
+        public ActionResult Search(GigsViewModel viewModel)
+        {
+            return RedirectToAction("Index" , "Home" , new {query = viewModel.SearchTerm });
+            
         }
     }
 }

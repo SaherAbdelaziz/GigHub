@@ -35,11 +35,10 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 <script type="text/x-template" id="notifications-template">
-        <ul>
+        <ul class="notifications">
             <%
                 _.each(notifications, function(notification){
                     if (notification.type == 1) { %>
@@ -90,8 +89,21 @@
                     return compiled({ notifications: notifications });
                 },
                 placement: "bottom",
-                trigger: 'focus'
-            });
+                trigger: 'focus',
+                template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-content"></div></div>'
+            }).on("shown.bs.popover", function() {
+                $.post("/api/Notifications/MarkAsRead")
+                    .done(function() {
+                        $('.js-notifications-count')
+                            .text('')
+                            .addClass('hide');
+
+
+                    });
+
+                console.log("on");
+
+                });
 
         });
     });

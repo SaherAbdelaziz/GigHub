@@ -5,6 +5,25 @@
     ViewBag.Title = "Home Page";
 }
 
+@using (Html.BeginForm("Search", "Gigs"))
+{
+    <div class="form-group">
+        <div class="input-group searchGigs" >
+            @Html.TextBoxFor(m => m.SearchTerm, new {@class = "form-control", PlaceHolder = "Search by name" })
+
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>        
+
+            </span>
+            
+
+        </div>
+
+    </div>
+    
+}
+
+
 <ul class="gigs">
 
     @foreach (var gig in Model.UpcomingGigs)
@@ -19,10 +38,11 @@
                 </div>
             </div>
 
-            <div class="details">
-                <span class="artist">
+            <div class="details px-2">
+                <span class="artist row">
+                    <a class="col-8 w-50" href="@Url.Action("Details" , "Gigs" , new {id = gig.Id})">
                     @gig.Artist.Name
-
+                    </a>
                     @if (gig.IsCanceled)
                     {
                         <span class="label label-warning">Canceled</span>
@@ -30,15 +50,17 @@
 
                     @if (Model.ShowActions)
                     {
-                        <button style="font-size:8px" data-user-id="@gig.ArtistId" class="btn btn-link btn-sm  js-toggle-follow"> Follow?</button>
+                        <button style="font-size: 8px" data-user-id="@gig.ArtistId" class="btn btn-link btn-sm col-4 w-50 js-toggle-follow"> Follow?</button>
                     }
                 </span>
 
-                <span class="genre">
-                    @gig.Genre.Name
+                <span class="genre row">
+                    <span class="col-8">@gig.Genre.Name</span>
                     @if (Model.ShowActions && !gig.IsCanceled)
-                    {
-                        <button style="font-size:8px" data-gig-id="@gig.Id" class="btn btn-default btn-sm  js-toggle-attendance"> Going?</button>
+                    {   
+                        <button style="font-size:8px" data-gig-id="@gig.Id" 
+                                class="btn @(Model.Attendances.Contains(gig.Id)? "btn-info" : "btn-default") 
+                                btn-sm col-4  js-toggle-attendance"> Going?</button>
                     }
                 </span>
             </div>

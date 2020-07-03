@@ -51,7 +51,6 @@ span.field-validation-error {
 .navbar-inverse .navbar-nav > .dropdown > a .caret {
     border-top-color: #ffffff;
     border-bottom-color: #ffffff;
-   
 }
 
 .navbar-brand {
@@ -60,7 +59,7 @@ span.field-validation-error {
 
 
 .navbar-inverse .notifications {
-    position: relative;    
+    position: relative;
 }
 
 a.notifications + div.popover {
@@ -105,65 +104,94 @@ form-control:focus {
 
 /*Page level styles*/
 
+@color_1: white;
+@color_2: #333;
+
 .gigs {
     list-style: none;
+
+    > li {
+        position: relative;
+        margin: 40px;
+
+        .date {
+            width: 60px;
+            background: red;
+            color: @color_1;
+            text-align: center;
+            -ms-border-radius: 10%;
+            border-radius: 15%;
+
+            .month {
+                text-transform: uppercase;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 2px 6px;
+            }
+
+            .day {
+                background: #f7f7f7;
+                color: @color_2;
+                font-size: 20px;
+                padding: 7% 10%;
+            }
+        }
+
+        .details {
+            position: absolute;
+            top: 0;
+            left: 70px;
+
+            .artist {
+                font-weight: bold;
+                display: block;
+            }
+
+            .genre {
+                font-size: 15px;
+            }
+        }
+
+        .actions {
+            font-size: 15px;
+            display: none;
+        }
+
+        &:hover {
+            .actions {
+                display: block;
+            }
+        }
+    }
 }
 
-.gigs > li {
-    position: relative;
-    margin: 40px;
-}
 
-.gigs > li .date {
-    width: 60px;
-    background: red;
-    color: white;
-    text-align: center;
-    -ms-border-radius: 10%;
-    border-radius: 15%;
-}
+.popover-notifications {
 
-.gigs > li .date .month {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 2px 6px;
-}
+    .popover-content {
+        padding: 0;
+    }
 
-.gigs > li .date .day {
-    background: #f7f7f7;
-    color: #333;
-    font-size: 20px;
-    padding: 7% 10%;
-}
+    ul.notifications {
+        list-style: none;
+        padding-left: 0;
+    }
 
-.gigs > li .details {
-    position: absolute;
-    top: 0;
-    left: 70px; 
-}
+    ul.notifications > li {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 10px;
+    }
 
-.gigs > li .details .artist {
-    font-weight: bold;
-    display: block;
-}
+    ul.notifications > li:last-child {
+        border-bottom: none;
+    }
 
-.gigs > li .details .genre {
-    font-size: 15px;
-}
-
-.gigs > li .actions {
-    font-size: 15px;
-    display: none
-}
-
-.gigs >li:hover .actions {
-    display: block;
+    ul.notifications > li:active {
+        border: 1px solid #000000;
+    }
 }
 
 
 .searchGigs {
     width: 300px;
 }
-
-
