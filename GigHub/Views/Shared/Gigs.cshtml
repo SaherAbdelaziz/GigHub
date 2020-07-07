@@ -15,16 +15,13 @@
                 <i class="glyphicon glyphicon-search"></i>
 
             </span>
-
-
         </div>
-
     </div>
 
 }
 
 
-<ul class="gigs">
+<ul id="gigs" class="gigs">
 
     @foreach (var gig in Model.UpcomingGigs)
     {
@@ -39,9 +36,9 @@
             </div>
 
             <div class="details px-2">
-                <div class="row">
+                <div class="">
                     <span class="artist">
-                        <a class="col-sm-5" href="@Url.Action("Details", "Gigs", new {id = gig.Id})">
+                        <a class="" href="@Url.Action("Details", "Gigs", new {id = gig.Id})">
                             @gig.Artist.Name
                         </a>
                         @if (gig.IsCanceled)
@@ -49,20 +46,15 @@
                             <span class="label label-warning">Canceled</span>
                         }
 
-                        @if (Model.ShowActions)
-                        {
-                            <button style="font-size: 8px" data-user-id="@gig.ArtistId" class="btn btn-link btn-sm col-sm-5 js-toggle-follow"> Follow?</button>
-                        }
                     </span>
                 </div>
-                <div class="row">
-                    <span class="genre ">
-                        <span class="col-sm-5">@gig.Genre.Name</span>
+                <div class="">
+                    <span class="genre">
+                        <span class="d-block">@gig.Genre.Name</span>
                         @if (Model.ShowActions && !gig.IsCanceled)
                         {
                             <button style="font-size: 8px" data-gig-id="@gig.Id"
-                                    class="btn @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default")
-                                btn-sm col-sm-5  js-toggle-attendance">
+                                    class="btn @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default") btn-sm  js-toggle-attendance">
                                 Going?
                             </button>
                         }
@@ -79,52 +71,9 @@
 {
     <script>
         $(document).ready(function () {
-            $(".js-toggle-attendance").click(function (e) {
-                var button = $(e.target);
 
-                if (button.hasClass("btn-default")) {
-                    $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
-                        .done(function () {
-                            button
-                                .removeClass("btn-default")
-                                .addClass("btn-info")
-                                .text("Going");
-                        })
-                        .fail(function () {
-                            alert("Something failed!");
-                        });
-                } else {
-                    $.ajax({
-                        url: "/api/attendances/" + button.attr("data-gig-id"),
-                        method: "DELETE"
-                    })
-                        .done(function () {
-                            button
-                                .removeClass("btn-info")
-                                .addClass("btn-default")
-                                .text("Going");
+            GigsController.init('#gigs');
 
-                        })
-                        .fail(function () {
-
-                            alert("Something");
-                        });
-                }
-            });
-        });
-
-
-        $(".js-toggle-follow").click(function (e) {
-            var button = $(e.target);
-
-            $.post("/api/followings", { followedId: button.attr("data-user-id") })
-                .done(function () {
-                    button
-                        .text("Following");
-                })
-                .fail(function () {
-                    alert("Something failed!");
-                });
         });
 
     </script>
